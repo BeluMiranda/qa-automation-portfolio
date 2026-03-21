@@ -36,16 +36,17 @@ jobs:
           merge-multiple: true
         continue-on-error: true
 
+      - name: "📊 Install Allure CLI"
+        run: npm install -g allure-commandline --save-dev
+
       - name: "📊 Generate Allure Report"
-        uses: simple-elf/allure-report-action@v1.9
-        with:
-          allure_results: allure-results-combined
-          allure_history: allure-history
-          keep_reports: 30
+        run: |
+          allure generate allure-results-combined --clean -o allure-report || \
+          (mkdir -p allure-report && echo "<h1>No test results found</h1>" > allure-report/index.html)
 
       - name: "🚀 Deploy to GitHub Pages"
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+          publish_dir: allure-report
