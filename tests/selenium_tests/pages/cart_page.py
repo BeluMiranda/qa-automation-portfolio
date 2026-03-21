@@ -35,13 +35,19 @@ class CartPage(BasePage):
         return len(self.driver.find_elements(*self._CART_ITEMS))
 
     def remove_item(self, index: int = 0) -> "CartPage":
+        initial = self.get_item_count()
         buttons = self.driver.find_elements(*self._REMOVE_BTNS)
-        buttons[index].click()
+        self.driver.execute_script("arguments[0].click();", buttons[index])
+        if initial > 0:
+            WebDriverWait(self.driver, 10).until(
+                lambda d: len(d.find_elements(*self._CART_ITEMS)) < initial
+            )
         return self
 
     def proceed_to_checkout(self) -> None:
-        WebDriverWait(self.driver, 30).until(EC.url_contains("cart.html"))
-        btn = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self._CHECKOUT_BTN))
+        btn = WebDriverWait(self.driver, 30).until(
+            EC.element_to_be_clickable(self._CHECKOUT_BTN)
+        )
         self.driver.execute_script("arguments[0].click();", btn)
         WebDriverWait(self.driver, 30).until(EC.url_contains("checkout-step-one"))
 

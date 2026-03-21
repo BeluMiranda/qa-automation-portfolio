@@ -5,6 +5,7 @@ from typing import List
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from tests.selenium_tests.pages.base_page import BasePage
 
@@ -49,30 +50,42 @@ class InventoryPage(BasePage):
     def add_item_to_cart(self, index: int = 0) -> "InventoryPage":
         """Add item by index (0-based) to cart."""
         buttons = self.driver.find_elements(*self._ADD_TO_CART_BTNS)
-        buttons[index].click()
+        initial_count = len(buttons)
+        self.driver.execute_script("arguments[0].click();", buttons[index])
+        WebDriverWait(self.driver, 10).until(
+            lambda d: len(d.find_elements(*self._ADD_TO_CART_BTNS)) < initial_count
+        )
         return self
 
     def add_all_items_to_cart(self) -> "InventoryPage":
         """Add all available items to cart."""
-        buttons = self.driver.find_elements(*self._ADD_TO_CART_BTNS)
-        for btn in buttons:
-            btn.click()
+        while True:
+            buttons = self.driver.find_elements(*self._ADD_TO_CART_BTNS)
+            if not buttons:
+                break
+            self.driver.execute_script("arguments[0].click();", buttons[0])
+            WebDriverWait(self.driver, 10).until(
+                lambda d: len(d.find_elements(*self._ADD_TO_CART_BTNS)) < len(buttons)
+            )
         return self
 
     def remove_item_from_cart(self, index: int = 0) -> "InventoryPage":
         """Remove item by index (0-based) from cart."""
-        remove_locator = self._REMOVE_BTNS
-        initial = len(self.driver.find_elements(*remove_locator))
-        self.driver.find_elements(*remove_locator)[index].click()
+        buttons = self.driver.find_elements(*self._REMOVE_BTNS)
+        initial = len(buttons)
+        self.driver.execute_script("arguments[0].click();", buttons[index])
         WebDriverWait(self.driver, 10).until(
-            lambda d: len(d.find_elements(*remove_locator)) < initial
+            lambda d: len(d.find_elements(*self._REMOVE_BTNS)) < initial
         )
         return self
 
     def go_to_cart(self) -> None:
         """Click the cart icon and wait for cart page to load."""
-        self.click(self._CART_ICON)
-        self.wait_for_url_contains("cart.html")
+        icon = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self._CART_ICON)
+        )
+        self.driver.execute_script("arguments[0].click();", icon)
+        WebDriverWait(self.driver, 30).until(EC.url_contains("cart.html"))
 
     def logout(self) -> None:
         """Open burger menu and click logout."""

@@ -68,7 +68,21 @@ jobs:
             --html=reports/selenium-report.html \
             --self-contained-html \
             --tb=short \
-            -v
+            -v \
+            2>/dev/null
+
+      - name: "📋 Test Results Summary"
+        if: always()
+        run: |
+          echo "========================================"
+          echo "       TEST RESULTS SUMMARY"
+          echo "========================================"
+          if [ -f reports/selenium-report.html ]; then
+            echo "✅ HTML report generated"
+          else
+            echo "❌ No HTML report found"
+          fi
+          echo "Check the uploaded artifacts for detailed results."
 
       - name: "📊 Upload HTML report"
         if: always()

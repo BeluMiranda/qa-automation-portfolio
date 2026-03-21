@@ -31,6 +31,9 @@ def _chrome_driver() -> webdriver.Chrome:
     options.add_argument("--disable-extensions")
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-notifications")
+    options.add_argument("--log-level=3")
+    options.add_argument("--silent")
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
     # Fix: webdriver-manager 4.x+ sometimes returns THIRD_PARTY_NOTICES instead of the binary
     import platform as _platform
