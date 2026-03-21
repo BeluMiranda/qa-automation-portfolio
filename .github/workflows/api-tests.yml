@@ -4,9 +4,10 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - "tests/api_tests/**"
+      - "tests/**"
       - "utils/**"
       - "requirements.txt"
+      - "pytest.ini"
       - ".github/workflows/api-tests.yml"
   pull_request:
     branches: [main, develop]

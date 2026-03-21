@@ -4,9 +4,10 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - "tests/selenium_tests/**"
+      - "tests/**"
       - "utils/**"
       - "requirements.txt"
+      - "pytest.ini"
       - ".github/workflows/selenium-tests.yml"
   pull_request:
     branches: [main, develop]

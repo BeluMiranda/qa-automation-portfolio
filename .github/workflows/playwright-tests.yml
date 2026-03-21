@@ -4,9 +4,10 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - "tests/playwright_tests/**"
+      - "tests/**"
       - "utils/**"
       - "requirements.txt"
+      - "pytest.ini"
       - ".github/workflows/playwright-tests.yml"
   pull_request:
     branches: [main, develop]
