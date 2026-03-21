@@ -66,8 +66,9 @@ class InventoryPage(BasePage):
         return self
 
     def go_to_cart(self) -> None:
-        """Click the cart icon."""
+        """Click the cart icon and wait for cart page to load."""
         self.click(self._CART_ICON)
+        self.wait_for_url_contains("cart.html")
 
     def logout(self) -> None:
         """Open burger menu and click logout."""

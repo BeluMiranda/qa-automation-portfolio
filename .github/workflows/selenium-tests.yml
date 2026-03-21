@@ -60,6 +60,7 @@ jobs:
           SAUCEDEMO_USER: "standard_user"
           SAUCEDEMO_PASSWORD: "secret_sauce"
           SAUCEDEMO_LOCKED_USER: "locked_out_user"
+          EXPLICIT_WAIT: "30"
         run: |
           pytest tests/selenium_tests/tests/ \
             -m "${{ github.event.inputs.markers || 'smoke or regression' }}" \

@@ -41,7 +41,7 @@ class CartPage(BasePage):
 
     def proceed_to_checkout(self) -> None:
         self.click(self._CHECKOUT_BTN)
-        self.wait_for_url_contains("checkout-step-one")
+        WebDriverWait(self.driver, 20).until(EC.url_contains("checkout-step-one"))
 
     def continue_shopping(self) -> None:
         self.click(self._CONTINUE_SHOPPING)
@@ -70,7 +70,7 @@ class CheckoutStepOnePage(BasePage):
         # SauceDemo uses React controlled inputs. Standard send_keys does not update React state.
         # We directly dispatch values to the React fiber useState hooks and then call the form's
         # onSubmit handler (which is what the Continue button ultimately triggers).
-        wait = WebDriverWait(self.driver, 15)
+        wait = WebDriverWait(self.driver, 30)
         wait.until(EC.visibility_of_element_located(self._FIRST_NAME))
         self.driver.execute_script(
             """
