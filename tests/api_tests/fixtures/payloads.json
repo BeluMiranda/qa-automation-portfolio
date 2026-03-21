@@ -1,0 +1,34 @@
+{
+  "create_post": {
+    "valid": {
+      "title": "Automation Testing Best Practices",
+      "body": "Page Object Model improves test maintainability significantly.",
+      "userId": 1
+    },
+    "missing_title": {
+      "body": "Body without a title",
+      "userId": 1
+    }
+  },
+  "update_post": {
+    "full": {
+      "id": 1,
+      "title": "Updated Post Title",
+      "body": "Updated body content for the post.",
+      "userId": 1
+    },
+    "partial": {
+      "title": "Partially Updated Title"
+    }
+  },
+  "create_user": {
+    "valid": {
+      "name": "QA Automation Engineer",
+      "job": "Test Automation"
+    },
+    "invalid": {
+      "name": "",
+      "job": ""
+    }
+  }
+}

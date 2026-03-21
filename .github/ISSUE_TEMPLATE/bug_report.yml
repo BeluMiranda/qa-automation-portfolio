@@ -1,0 +1,83 @@
+name: "🐛 Bug Report"
+about: "Report a failing or flaky test"
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+assignees: ""
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Report
+        Please fill in this form as **completely** as possible.
+
+  - type: dropdown
+    id: suite
+    attributes:
+      label: "Test Suite"
+      description: "Which test suite is affected?"
+      options:
+        - Selenium Tests
+        - API Tests
+        - Playwright Tests
+    validations:
+      required: true
+
+  - type: input
+    id: test-name
+    attributes:
+      label: "Failing Test"
+      description: "Test class and method name"
+      placeholder: "TestLogin::test_valid_login_redirects_to_inventory"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "What happened vs. what was expected?"
+      placeholder: |
+        ACTUAL: Login throws TimeoutException after 15s
+        EXPECTED: User is redirected to /inventory.html
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to Reproduce"
+      placeholder: |
+        1. Run: pytest tests/selenium_tests/tests/test_login.py::TestLogin::test_valid_login -v
+        2. Observe error in stdout
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-log
+    attributes:
+      label: "Error Log / Stack Trace"
+      render: shell
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: "Environment"
+      options:
+        - Local (Windows)
+        - Local (macOS)
+        - Local (Linux)
+        - GitHub Actions (CI)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: "Frequency"
+      options:
+        - Always fails
+        - Flaky (intermittent)
+        - First run only
+    validations:
+      required: true

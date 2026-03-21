@@ -1,0 +1,92 @@
+name: "✅ New Test Case"
+about: "Propose a new automated test case"
+title: "[TEST CASE] "
+labels: ["test-case", "enhancement"]
+assignees: ""
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## New Test Case Proposal
+        Use this template to document and request a new automated test.
+
+  - type: dropdown
+    id: suite
+    attributes:
+      label: "Target Suite"
+      options:
+        - Selenium Tests
+        - API Tests
+        - Playwright Tests
+    validations:
+      required: true
+
+  - type: input
+    id: test-id
+    attributes:
+      label: "Test Case ID"
+      placeholder: "TC_LOGIN_011"
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: "Test Title"
+      placeholder: "Verify session expires after 30 minutes of inactivity"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority / Severity"
+      options:
+        - BLOCKER
+        - CRITICAL
+        - NORMAL
+        - MINOR
+    validations:
+      required: true
+
+  - type: textarea
+    id: preconditions
+    attributes:
+      label: "Preconditions"
+      placeholder: |
+        - User is logged in as standard_user
+        - At least one item is in the cart
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Test Steps"
+      placeholder: |
+        1. Navigate to /inventory.html
+        2. Add item to cart
+        3. Navigate to /cart.html
+        4. Verify item is listed
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected Result"
+      placeholder: "Cart shows 1 item with correct name and price"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: type
+    attributes:
+      label: "Test Type"
+      options:
+        - label: Smoke
+        - label: Regression
+        - label: Security
+        - label: Performance
+        - label: Boundary / Edge case

@@ -1,0 +1,51 @@
+name: "📊 Allure Report — GitHub Pages"
+
+on:
+  workflow_run:
+    workflows:
+      - "🧪 Selenium Tests"
+      - "🔌 API Tests"
+      - "🎭 Playwright Tests"
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  allure-report:
+    name: "Generate & Publish Allure Report"
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success' ||
+      github.event.workflow_run.conclusion == 'failure'
+
+    steps:
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "📥 Download all Allure results"
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "allure-results-*"
+          path: allure-results-combined/
+          merge-multiple: true
+        continue-on-error: true
+
+      - name: "📊 Generate Allure Report"
+        uses: simple-elf/allure-report-action@v1.9
+        with:
+          allure_results: allure-results-combined
+          allure_history: allure-history
+          keep_reports: 30
+
+      - name: "🚀 Deploy to GitHub Pages"
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history

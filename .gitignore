@@ -1,0 +1,86 @@
+# ============================================================
+# .gitignore - QA Automation Portfolio
+# ============================================================
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.pyc
+
+# ---- Virtual Environments ----
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ---- Testing & Reports ----
+.pytest_cache/
+allure-results/
+allure-report/
+reports/*.html
+reports/*.xml
+reports/*.json
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# ---- Playwright ----
+node_modules/
+playwright-report/
+test-results/
+
+# ---- Screenshots & Videos ----
+screenshots/
+videos/
+*.png
+*.mp4
+*.webm
+
+# ---- IDE ----
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# ---- OS ----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V4
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ---- Logs ----
+*.log
+logs/
+
+# ---- Secrets ----
+.env
+secrets.json
+credentials.json
