@@ -34,11 +34,13 @@ def _chrome_driver() -> webdriver.Chrome:
 
     # Fix: webdriver-manager 4.x+ sometimes returns THIRD_PARTY_NOTICES instead of the binary
     import platform as _platform
+    import stat
     driver_path = ChromeDriverManager().install()
     binary_name = "chromedriver.exe" if _platform.system() == "Windows" else "chromedriver"
     expected = os.path.join(os.path.dirname(driver_path), binary_name)
     if os.path.isfile(expected):
         driver_path = expected
+    os.chmod(driver_path, os.stat(driver_path).st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
     service = ChromeService(driver_path)
     return webdriver.Chrome(service=service, options=options)
