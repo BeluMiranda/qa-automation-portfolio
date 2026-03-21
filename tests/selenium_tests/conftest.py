@@ -32,11 +32,13 @@ def _chrome_driver() -> webdriver.Chrome:
     options.add_argument("--disable-infobars")
     options.add_argument("--disable-notifications")
 
-    # Fix: webdriver-manager a veces apunta al archivo incorrecto
+    # Fix: webdriver-manager 4.x+ sometimes returns THIRD_PARTY_NOTICES instead of the binary
+    import platform as _platform
     driver_path = ChromeDriverManager().install()
-    if not driver_path.endswith("chromedriver.exe"):
-        import os
-        driver_path = os.path.join(os.path.dirname(driver_path), "chromedriver.exe")
+    binary_name = "chromedriver.exe" if _platform.system() == "Windows" else "chromedriver"
+    expected = os.path.join(os.path.dirname(driver_path), binary_name)
+    if os.path.isfile(expected):
+        driver_path = expected
 
     service = ChromeService(driver_path)
     return webdriver.Chrome(service=service, options=options)
