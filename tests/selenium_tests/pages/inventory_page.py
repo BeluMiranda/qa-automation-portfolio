@@ -4,7 +4,7 @@ Page: InventoryPage — saucedemo.com/inventory.html
 from typing import List
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import Select, WebDriverWait
 
 from tests.selenium_tests.pages.base_page import BasePage
 
@@ -61,8 +61,12 @@ class InventoryPage(BasePage):
 
     def remove_item_from_cart(self, index: int = 0) -> "InventoryPage":
         """Remove item by index (0-based) from cart."""
-        buttons = self.driver.find_elements(*self._REMOVE_BTNS)
-        buttons[index].click()
+        remove_locator = self._REMOVE_BTNS
+        initial = len(self.driver.find_elements(*remove_locator))
+        self.driver.find_elements(*remove_locator)[index].click()
+        WebDriverWait(self.driver, 10).until(
+            lambda d: len(d.find_elements(*remove_locator)) < initial
+        )
         return self
 
     def go_to_cart(self) -> None:

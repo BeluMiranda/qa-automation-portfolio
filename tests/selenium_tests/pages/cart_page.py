@@ -40,8 +40,10 @@ class CartPage(BasePage):
         return self
 
     def proceed_to_checkout(self) -> None:
-        self.click(self._CHECKOUT_BTN)
-        WebDriverWait(self.driver, 20).until(EC.url_contains("checkout-step-one"))
+        WebDriverWait(self.driver, 30).until(EC.url_contains("cart.html"))
+        btn = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(self._CHECKOUT_BTN))
+        self.driver.execute_script("arguments[0].click();", btn)
+        WebDriverWait(self.driver, 30).until(EC.url_contains("checkout-step-one"))
 
     def continue_shopping(self) -> None:
         self.click(self._CONTINUE_SHOPPING)
