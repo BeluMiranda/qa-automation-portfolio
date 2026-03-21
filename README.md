@@ -1,6 +1,6 @@
 # QA Automation Portfolio
 
-<!-- Badges — replace YOUR_USERNAME with your GitHub username after pushing -->
+
 ![Selenium Tests](https://github.com/BeluMiranda/qa-automation-portfolio/actions/workflows/selenium-tests.yml/badge.svg)
 ![API Tests](https://github.com/BeluMiranda/qa-automation-portfolio/actions/workflows/api-tests.yml/badge.svg)
 ![Playwright Tests](https://github.com/BeluMiranda/qa-automation-portfolio/actions/workflows/playwright-tests.yml/badge.svg)
@@ -133,7 +133,7 @@ Same Sauce Demo scenarios re-implemented with Playwright.
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/qa-automation-portfolio.git
+git clone https://github.com/BeluMiranda/qa-automation-portfolio.git
 cd qa-automation-portfolio
 ```
 
@@ -218,7 +218,7 @@ HEADLESS=false pytest tests/selenium_tests/tests/test_login.py -v
 | Allure Report | after any test workflow | N/A |
 
 ### Live Allure Report
-📊 **[View Latest Report](https://YOUR_USERNAME.github.io/qa-automation-portfolio/)**
+📊 **[View Latest Report](https://BeluMiranda.github.io/qa-automation-portfolio/)**
 
 _(Available after pushing to `main` and GitHub Actions completes)_
 
@@ -251,4 +251,4 @@ _(Available after pushing to `main` and GitHub Actions completes)_
 
 ## 📄 License
 
-MIT © YOUR_USERNAME
+MIT © Belen Miranda
